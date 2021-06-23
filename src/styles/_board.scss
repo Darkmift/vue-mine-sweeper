@@ -3,3 +3,8 @@
   border-color: $clr5 $clr6 $clr6 $clr5;
   box-sizing: border-box;
 }
+
+.main-border-inverted {
+  @extend .main-border;
+  border-color: $clr6 $clr5 $clr5 $clr6;
+}

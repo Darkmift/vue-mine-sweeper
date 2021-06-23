@@ -1,5 +1,7 @@
 <template>
-	<div class="board">Board</div>
+	<div class="board">
+		<top-bar />
+	</div>
 </template>
 
 <style scoped lang="scss">
@@ -9,5 +11,6 @@
 </style>
 
 <script>
-export default { name: "Board" };
+import TopBar from "./TopBar";
+export default { name: "Board", components: { TopBar } };
 </script>
