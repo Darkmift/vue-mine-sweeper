@@ -5,6 +5,7 @@ module.exports = {
         prependData: `
           @import "@/styles/setup/_variables.scss";
           @import "@/styles/setup/_typography.scss";
+          @import "@/styles/_board.scss";
         `
       }
     }
