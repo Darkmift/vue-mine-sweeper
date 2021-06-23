@@ -7,6 +7,7 @@
 <style scoped lang="scss">
 .board {
 	@extend .main-border;
+	background: $clr1;
 }
 </style>
 

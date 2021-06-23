@@ -32,7 +32,7 @@
 	.status-emoji {
 		@extend .box-size;
 		padding-top: 5px;
-		background: #acbfa4;
+		background: transparent;
 		@extend .main-border;
 		outline: none;
 		font-size: 2.1em;
