@@ -1,17 +1,24 @@
 <template>
 	<div class="board">
-		<top-bar />
+		<div class="row flex" v-for="(row, i) in level.rows" :key="i">
+			<cell class="cell" v-for="(cell, j) in level.rows" :key="j"></cell>
+		</div>
 	</div>
 </template>
 
 <style scoped lang="scss">
 .board {
-	@extend .main-border;
-	background: $clr1;
+	margin-top: 10px;
 }
 </style>
 
 <script>
-import TopBar from "./TopBar";
-export default { name: "Board", components: { TopBar } };
+import Cell from "./Cell";
+export default {
+	name: "Board",
+	props: {
+		level: { type: Object, required: true },
+	},
+	components: { Cell },
+};
 </script>

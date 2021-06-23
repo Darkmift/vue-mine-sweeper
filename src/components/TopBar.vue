@@ -9,7 +9,6 @@
 <style scoped lang="scss">
 .top-bar {
 	min-width: 50vw;
-	padding: 1vmin;
 
 	.box-size {
 		display: flex;
@@ -33,6 +32,7 @@
 		@extend .box-size;
 		padding-top: 5px;
 		background: transparent;
+		width: max-content;
 		@extend .main-border;
 		outline: none;
 		font-size: 2.1em;
