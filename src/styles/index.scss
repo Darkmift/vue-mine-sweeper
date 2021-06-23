@@ -1,5 +1,7 @@
+// SETUP
+@import 'setup/variables';
+@import 'setup/typography';
+
 // BASICS
 @import 'basics/base';
-
-// SETUP
-@import 'setup/typography';
+@import 'basics/flex';
