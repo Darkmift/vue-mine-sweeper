@@ -1,7 +1,7 @@
 <template>
-	<div class="board">
+	<div class="board" ref="boardEl">
 		<div class="row flex" v-for="(row, i) in level.rows" :key="i">
-			<cell class="cell" v-for="(cell, j) in level.rows" :key="j"></cell>
+			<cell class="cell" :rowCount="level.rows" v-for="(cell, j) in level.rows" :key="j"></cell>
 		</div>
 	</div>
 </template>
@@ -13,11 +13,16 @@
 </style>
 
 <script>
+import { ref } from "vue";
 import Cell from "./Cell";
 export default {
 	name: "Board",
 	props: {
 		level: { type: Object, required: true },
+	},
+	setup() {
+		const boardEl = ref(null);
+		return { boardEl };
 	},
 	components: { Cell },
 };

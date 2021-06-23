@@ -1,0 +1,11 @@
+@mixin main-border {
+  border: 5px solid;
+  border-color: $clr5 $clr6 $clr6 $clr5;
+  box-sizing: border-box;
+}
+
+@mixin main-border-inverted {
+  border: 5px solid;
+  border-color: $clr6 $clr5 $clr5 $clr6;
+  box-sizing: border-box;
+}

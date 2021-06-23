@@ -10,7 +10,9 @@
 .top-bar {
 	min-width: 50vw;
 
-	.box-size {
+	.display-mines,
+	.timer,
+	.status-emoji {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -21,7 +23,6 @@
 
 	.display-mines,
 	.timer {
-		@extend .box-size;
 		background: #262626;
 		border: 5px solid;
 		border-color: #7c8a76 #e2e8ce #e2e8ce #7c8a76;
@@ -29,7 +30,6 @@
 	}
 
 	.status-emoji {
-		@extend .box-size;
 		padding-top: 5px;
 		background: transparent;
 		width: max-content;

@@ -7,7 +7,7 @@
 
 <style scoped lang="scss">
 .game {
-	@extend .main-border;
+	@include main-border;
 	padding: 1vmin;
 	background: $clr1;
 }
