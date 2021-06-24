@@ -46,11 +46,8 @@ export default {
 		// DATA
 		const el = ref(null);
 		const elComputedStyle = ref("");
-		const { cellData } = toRefs(props);
-		console.log(
-			"🚀 ~ file: Cell.vue ~ line 43 ~ setup ~ cellData",
-			cellData.value
-		);
+		const { cellData: propCell } = toRefs(props);
+		const cellData = ref(propCell.value);
 
 		// COMPUTED
 		const elClassComputed = computed(() => {
@@ -76,7 +73,6 @@ export default {
 
 		// METHODS
 		function handleClick() {
-			console.log({ cellData: cellData.value });
 			cellData.value.isShown = true;
 		}
 
