@@ -95,38 +95,22 @@ export default {
 			const height = (boardElHeight / props.rowCount) * 1.85;
 
 			const { minesAroundCount } = cellData.value;
-			let fontColor = "#000";
-			switch (minesAroundCount) {
-				case 1:
-					fontColor = "#4299e1";
-					break;
-				case 2:
-					fontColor = "#48bb78";
-					break;
-				case 3:
-					fontColor = "#f56565";
-					break;
-				case 4:
-					fontColor = "#bd3131";
-					break;
-				case 5:
-					fontColor = "#701a1a";
-					break;
-				case 6:
-					fontColor = "#4b1414";
-					break;
-				case 7:
-					fontColor = "#270c0c";
-					break;
-				case 8:
-					fontColor = "#130808";
-					break;
-			}
+			const colors = [
+				"#000",
+				"#4299e1",
+				"#48bb78",
+				"#f56565",
+				"#bd3131",
+				"#701a1a",
+				"#4b1414",
+				"#270c0c",
+				"#130808",
+			];
 
 			elComputedStyle.value = {
 				fontSize: `${(width / 100) * 55}px`,
 				height: `${height < width ? width : height}px`,
-				color: fontColor,
+				color: colors[minesAroundCount],
 			};
 		});
 
