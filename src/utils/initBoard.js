@@ -18,7 +18,6 @@ export function buildBoard({ rows, mines }) {
  *  @phase_2 add mines
  */
   const cells = boardMatrix.flat(1)
-  console.log("🚀 ~ file: initBoard.js ~ line 21 ~ buildBoard ~ cells", cells)
 
   for (let i = 0; i < mines; i++) {
     const randIdx = _getRandomInteger(0, cells.length - 1);

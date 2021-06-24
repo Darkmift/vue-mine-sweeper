@@ -6,7 +6,7 @@
 				:rowCount="level.rows"
 				v-for="(cell, j) in level.rows"
 				:key="j"
-				:cellData="boardMatrix[i][j]"
+				:cellCoords="{ i, j }"
 			></cell>
 		</div>
 	</div>
@@ -25,7 +25,6 @@ export default {
 	name: "Board",
 	props: {
 		level: { type: Object, required: true },
-		boardMatrix: { type: Array, required: true },
 	},
 	setup() {
 		const boardEl = ref(null);

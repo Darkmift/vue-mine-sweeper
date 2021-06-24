@@ -1,7 +1,7 @@
 <template>
-	<div class="game">
-		<top-bar :totalMines="totalMines" />
-		<board :level="level" :boardMatrix="boardMatrix" />
+	<div class="game" @contextmenu.prevent="rightClickHandler">
+		<top-bar :totalMines="level.mines" />
+		<board :level="level" />
 	</div>
 </template>
 
@@ -14,8 +14,8 @@
 </style>
 
 <script>
-// import { useStore } from "vuex";
-import { /*ref,*/ computed, reactive } from "vue";
+import { useStore } from "vuex";
+import { reactive } from "vue";
 
 import { buildBoard } from "@/utils/initBoard.js";
 
@@ -32,18 +32,20 @@ export default {
 			brutal: { rows: 16, mines: 48 },
 		});
 		let level = levels.easy;
-		const totalMines = computed(() => level.mines);
-		const boardMatrix = buildBoard(level);
 		// METHODS
 		function setLevel(levelName) {
 			level = levels[levelName];
 		}
 
-		// const boardMatrix = buildBoard(level);
-		// const store = useStore();
-		// store.commit({ type: "setBoard", boardMatrix });
+		function rightClickHandler() {
+			console.log("context-menu disabled");
+		}
 
-		return { level, totalMines, setLevel, boardMatrix };
+		const boardMatrix = buildBoard(level);
+		const store = useStore();
+		store.commit({ type: "setBoard", boardMatrix });
+
+		return { level, rightClickHandler, setLevel };
 	},
 	components: { TopBar, Board },
 };
