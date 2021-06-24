@@ -1,7 +1,13 @@
 <template>
 	<div class="board" ref="boardEl">
 		<div class="row flex" v-for="(row, i) in level.rows" :key="i">
-			<cell class="cell" :rowCount="level.rows" v-for="(cell, j) in level.rows" :key="j"></cell>
+			<cell
+				class="cell"
+				:rowCount="level.rows"
+				v-for="(cell, j) in level.rows"
+				:key="j"
+				:cellData="boardMatrix[i][j]"
+			></cell>
 		</div>
 	</div>
 </template>
@@ -19,6 +25,7 @@ export default {
 	name: "Board",
 	props: {
 		level: { type: Object, required: true },
+		boardMatrix: { type: Array, required: true },
 	},
 	setup() {
 		const boardEl = ref(null);
