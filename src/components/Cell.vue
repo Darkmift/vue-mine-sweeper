@@ -25,6 +25,10 @@
 	&.shown {
 		@include main-border-inverted;
 	}
+	&.boom {
+		@include main-border-inverted;
+		background-color: #ff0000;
+	}
 }
 </style>
 
@@ -46,15 +50,11 @@ export default {
 
 		// COMPUTED
 		const cellData = computed(() => store.getters.cell(props.cellCoords));
-		console.log(
-			"🚀 ~ file: Cell.vue ~ line 49 ~ setup ~ cellData",
-			cellData.value
-		);
-
 		const elClassComputed = computed(() => {
 			return {
 				covered: !cellData.value.isShown,
 				shown: cellData.value.isShown,
+				boom: cellData.value.isShown && cellData.value.isMine,
 			};
 		});
 
@@ -63,7 +63,7 @@ export default {
 			const FLAG = "🏁";
 			const EMPTY = " ";
 
-			if (!cellData.value.isShown && cellData.value.isFlagged) {
+			if (!cellData.value.isShown && cellData.value.isMarked) {
 				return FLAG;
 			}
 
@@ -80,9 +80,10 @@ export default {
 		// METHODS
 		function handleClick() {
 			cellData.value.isShown = true;
+			if (cellData.value.isMine) store.commit("gameOver");
 		}
 		function flagMine() {
-			cellData.value.isFlagged = !cellData.value.isFlagged;
+			cellData.value.isMarked = !cellData.value.isMarked;
 		}
 
 		// HOOKS
@@ -128,7 +129,7 @@ export default {
 				color: fontColor,
 			};
 		});
-		
+
 		return {
 			el,
 			elComputedStyle,
