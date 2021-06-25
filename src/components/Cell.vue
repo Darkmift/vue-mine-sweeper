@@ -79,6 +79,7 @@ export default {
 		const gameData = computed(() => store.getters.game);
 		// METHODS
 		function handleClick() {
+			if (gameData.value.isOver) return;
 			cellData.value.isShown = true;
 			cellData.value.isMarked = false;
 			if (cellData.value.minesAroundCount === 0) {
@@ -101,7 +102,7 @@ export default {
 		}
 
 		function _handleTimer() {
-			if (gameData.value.timer.intervalAnchor) return;
+			if (gameData.value.isOver || gameData.value.timer.intervalAnchor) return;
 			store.commit("startTimer");
 		}
 
