@@ -92,7 +92,7 @@ export default {
 		}
 
 		function flagMine() {
-			if (cellData.value.isShown) {
+			if (cellData.value.isShown || gameData.value.isOver) {
 				cellData.value.isMarked = false;
 				return;
 			}
