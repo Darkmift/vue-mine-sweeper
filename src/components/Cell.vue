@@ -34,7 +34,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref, computed, onMounted, getCurrentInstance } from "vue";
+import { ref, computed, onMounted /*, getCurrentInstance*/ } from "vue";
 export default {
 	name: "Cell",
 	props: {
@@ -74,25 +74,30 @@ export default {
 				return BOMB;
 			}
 
-			return cellData.value.minesAroundCount || "";
+			return cellData.value.minesAroundCount || EMPTY;
 		});
-
+		const gameData = computed(() => store.getters.game);
 		// METHODS
 		function handleClick() {
 			cellData.value.isShown = true;
-			if (cellData.value.isMine) store.commit("gameOver");
+			if (cellData.value.isMine) return store.commit("gameOver");
+			_handleTimer();
 		}
+
 		function flagMine() {
 			cellData.value.isMarked = !cellData.value.isMarked;
+			_handleTimer();
+		}
+
+		function _handleTimer() {
+			if (gameData.value.timer.intervalAnchor) return;
+			store.commit("startTimer");
 		}
 
 		// HOOKS
 		onMounted(() => {
 			const { width } = el.value.getBoundingClientRect();
-			const instance = getCurrentInstance();
-
-			const boardElHeight = instance.parent.refs.boardEl.clientHeight;
-			const height = (boardElHeight / props.rowCount) * 1.85;
+			const height = (window.innerHeight * 0.75) / props.rowCount;
 
 			const { minesAroundCount } = cellData.value;
 			const colors = [
@@ -109,7 +114,7 @@ export default {
 
 			elComputedStyle.value = {
 				fontSize: `${(width / 100) * 55}px`,
-				height: `${height < width ? width : height}px`,
+				height: `${height > width ? width : height}px`,
 				color: colors[minesAroundCount],
 			};
 		});

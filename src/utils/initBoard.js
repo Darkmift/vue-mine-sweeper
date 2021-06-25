@@ -86,6 +86,7 @@ function _findAdjacentCells(board, cell, range = 1) {
 }
 
 function _logTMat(matrix) {
+  if (process.env.NODE_ENV === 'production') return
   const BOMB = '💣';
 
   console.table(

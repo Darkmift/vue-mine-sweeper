@@ -2,7 +2,9 @@
 	<div class="top-bar flex j-between a-stretch">
 		<div class="display-mines"><h1>20</h1></div>
 		<button class="status-emoji"><span>🙂</span></button>
-		<div class="timer"><h1>00:00</h1></div>
+		<div class="timer">
+			<h1>{{ game.timer.timerToString }}</h1>
+		</div>
 	</div>
 </template>
 
@@ -50,5 +52,16 @@
 </style>
 
 <script>
-export default { name: "Top-Bar" };
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+export default {
+	name: "Top-Bar",
+	setup() {
+		const store = useStore();
+		const game = computed(() => store.getters.game);
+
+		return { game };
+	},
+};
 </script>
