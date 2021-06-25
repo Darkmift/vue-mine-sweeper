@@ -81,6 +81,12 @@ export default {
 		function handleClick() {
 			cellData.value.isShown = true;
 			cellData.value.isMarked = false;
+			if (cellData.value.minesAroundCount === 0) {
+				store.commit({
+					type: "revealAdjacentEmptyCells",
+					location: cellData.value.location,
+				});
+			}
 			if (cellData.value.isMine) return store.commit("gameOver");
 			_handleTimer();
 		}

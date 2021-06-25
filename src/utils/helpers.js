@@ -1,6 +1,4 @@
 export function renderTimer(timeObj) {
-  console.log("🚀 ~ file: helpers.js ~ line 2 ~ renderTimer ~ timeObj",
-    timeObj, timeObj.gameRunning)
   timeObj.intervalAnchor = setInterval(() => {
 
     if (!timeObj.gameRunning) {
@@ -22,6 +20,5 @@ export function renderTimer(timeObj) {
     }
 
     timeObj.timerToString = timerToString
-    console.log("🚀 ~ file: helpers.js ~ line 2 ~ renderTimer ~ timeObj", timeObj)
   }, 1000)
 }

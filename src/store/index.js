@@ -1,4 +1,5 @@
 import { renderTimer } from '../utils/helpers'
+import { revealAdjacentEmptyCells } from '../utils/initBoard'
 
 import { createStore } from 'vuex'
 
@@ -30,7 +31,10 @@ export default createStore({
       }))
       game.isOver = true
       game.timer.gameRunning = false
-      // clearInterval(timeObj.intervalAnchor)
+    },
+    revealAdjacentEmptyCells({ board }, { location }) {
+      console.log({ board, location })
+      revealAdjacentEmptyCells(board, location)
     },
     startTimer({ game: { timer } }) {
       timer.gameRunning = true

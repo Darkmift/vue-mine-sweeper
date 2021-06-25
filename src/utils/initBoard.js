@@ -46,6 +46,25 @@ export function buildBoard({ rows, mines }) {
   return boardMatrix
 }
 
+export function revealAdjacentEmptyCells(boardMatrix, location) {
+  const adjacentCells = _findAdjacentCells(boardMatrix, { location })
+  if (!adjacentCells.length) return
+  const { i: MainI, j: MainJ } = location
+  adjacentCells.forEach(cell => {
+    const { i, j } = cell.location
+    if (
+      cell.isMine === false &&
+      cell.isShown === false &&
+      (i === MainI || j === MainJ)
+    ) {
+      cell.isShown = true
+      if (cell.minesAroundCount === 0) {
+        revealAdjacentEmptyCells(boardMatrix, cell.location)
+      }
+    }
+  })
+}
+
 function _cellFactory(i, j) {
   const cell = {
     location: { i, j },
