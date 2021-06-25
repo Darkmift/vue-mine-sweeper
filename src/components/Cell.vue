@@ -80,11 +80,16 @@ export default {
 		// METHODS
 		function handleClick() {
 			cellData.value.isShown = true;
+			cellData.value.isMarked = false;
 			if (cellData.value.isMine) return store.commit("gameOver");
 			_handleTimer();
 		}
 
 		function flagMine() {
+			if (cellData.value.isShown) {
+				cellData.value.isMarked = false;
+				return;
+			}
 			cellData.value.isMarked = !cellData.value.isMarked;
 			_handleTimer();
 		}

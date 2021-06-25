@@ -1,6 +1,8 @@
 <template>
 	<div class="top-bar flex j-between a-stretch">
-		<div class="display-mines"><h1>20</h1></div>
+		<div class="display-mines">
+			<h1>{{ flaggedCells }}</h1>
+		</div>
 		<button class="status-emoji"><span>🙂</span></button>
 		<div class="timer">
 			<h1>{{ game.timer.timerToString }}</h1>
@@ -60,8 +62,11 @@ export default {
 	setup() {
 		const store = useStore();
 		const game = computed(() => store.getters.game);
+		const flaggedCells = computed(
+			() => store.getters.board.flat(1).filter((cell) => cell.isMarked).length
+		);
 
-		return { game };
+		return { game, flaggedCells };
 	},
 };
 </script>
