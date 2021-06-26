@@ -6,6 +6,7 @@
 </template>
 
 <style lang="scss">
+// https://codepen.io/geoffbuell/pen/gOwdqXg
 #app {
 	width: 100vw;
 	height: 100vh;

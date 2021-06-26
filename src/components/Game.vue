@@ -15,9 +15,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { reactive } from "vue";
-
-import { buildBoard } from "@/utils/initBoard.js";
+import { computed } from "vue";
 
 import TopBar from "./TopBar";
 import Board from "./Board";
@@ -25,25 +23,20 @@ export default {
 	name: "Game",
 	setup() {
 		// DATA
-		const levels = reactive({
-			easy: { rows: 4, mines: 4 },
-			medium: { rows: 8, mines: 12 },
-			hard: { rows: 12, mines: 30 },
-			brutal: { rows: 16, mines: 48 },
-		});
-		let level = levels.easy;
+
+		const store = useStore();
+		store.commit({ type: "setBoard", level: "brutal" });
+		let level = computed(() => store.getters.level);
+    console.log("🚀 ~ file: Game.vue ~ line 30 ~ setup ~ level", level.value)
+
 		// METHODS
 		function setLevel(levelName) {
-			level = levels[levelName];
+			store.commit({ type: "setBoard", levelName });
 		}
 
 		function rightClickHandler() {
 			console.log("context-menu disabled");
 		}
-
-		const boardMatrix = buildBoard(level);
-		const store = useStore();
-		store.commit({ type: "setBoard", boardMatrix });
 
 		return { level, rightClickHandler, setLevel };
 	},

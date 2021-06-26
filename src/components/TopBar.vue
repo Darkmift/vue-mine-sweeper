@@ -3,7 +3,9 @@
 		<div class="display-mines">
 			<h1>{{ flaggedCells }}</h1>
 		</div>
-		<button class="status-emoji"><span>🙂</span></button>
+		<button class="status-emoji" @click="resetGame">
+			<span>{{ emoji }}</span>
+		</button>
 		<div class="timer">
 			<h1>{{ game.timer.timerToString }}</h1>
 		</div>
@@ -54,7 +56,7 @@
 </style>
 
 <script>
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -66,7 +68,20 @@ export default {
 			() => store.getters.board.flat(1).filter((cell) => cell.isMarked).length
 		);
 
-		return { game, flaggedCells };
+		const EMOJI_OPTION = {
+			default: "🙂",
+			clicking: "😬",
+			hovering: "🤔",
+			gameOver: "😵",
+		};
+		const emoji = ref(EMOJI_OPTION.default);
+
+		function resetGame() {
+			store.commit("resetGame");
+			emoji.value = EMOJI_OPTION.default;
+		}
+
+		return { game, flaggedCells, resetGame, emoji };
 	},
 };
 </script>

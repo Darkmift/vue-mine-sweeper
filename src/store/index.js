@@ -1,11 +1,18 @@
 import { renderTimer } from '../utils/helpers'
-import { revealAdjacentEmptyCells } from '../utils/initBoard'
+import { buildBoard, revealAdjacentEmptyCells } from '../utils/initBoard'
 
 import { createStore } from 'vuex'
 
 export default createStore({
   state: {
     board: [],
+    levels: {
+      easy: { rows: 4, mines: 4 },
+      medium: { rows: 8, mines: 12 },
+      hard: { rows: 12, mines: 30 },
+      brutal: { rows: 16, mines: 48 },
+    },
+    currentLevel: null,
     game: {
       isOver: false,
       timer: {
@@ -19,11 +26,19 @@ export default createStore({
   getters: {
     board: ({ board }) => board,
     cell: ({ board }) => ({ i, j }) => board[i][j],
-    game: ({ game }) => game
+    game: ({ game }) => game,
+    level: ({ currentLevel }) => currentLevel
   },
   mutations: {
-    setBoard(state, { boardMatrix }) {
-      state.board = boardMatrix
+    setBoard(state, { levelName }) {
+      const { levels } = state
+      const setLevel = levelName && levels[levelName] ? levels[levelName] : levels.brutal
+      state.currentLevel = setLevel
+      state.board = buildBoard(setLevel)
+    },
+    resetGame({ game }) {
+      game.isOver = false
+      game.timer.gameRunning = false
     },
     gameOver({ board, game }) {
       board.forEach((row) => row.forEach((cell) => {
