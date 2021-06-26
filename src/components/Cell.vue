@@ -77,6 +77,7 @@ export default {
 			return cellData.value.minesAroundCount || EMPTY;
 		});
 		const gameData = computed(() => store.getters.game);
+
 		// METHODS
 		function handleClick() {
 			if (gameData.value.isOver) return;
@@ -90,6 +91,7 @@ export default {
 			}
 			if (cellData.value.isMine) return store.commit("gameOver");
 			_handleTimer();
+			store.commit("checkIfVictory");
 		}
 
 		function flagMine() {
@@ -99,6 +101,7 @@ export default {
 			}
 			cellData.value.isMarked = !cellData.value.isMarked;
 			_handleTimer();
+			store.commit("checkIfVictory");
 		}
 
 		function _handleTimer() {

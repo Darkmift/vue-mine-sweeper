@@ -18,6 +18,7 @@ export default createStore({
       clicking: "😬",
       hovering: "🤔",
       gameOver: "😵",
+      win: '😎'
     },
     game: {
       isOver: false,
@@ -54,6 +55,24 @@ export default createStore({
       game.isOver = true
       game.timer.gameRunning = false
       game.emoji = emojiOption.gameOver
+    },
+    checkIfVictory({ board, game,/* currentLevel,*/ emojiOption }) {
+
+      try {
+        board.forEach((row) => row.forEach((cell) => {
+          if (cell.isMarked && !cell.isMine) throw 'non mine cells are flagged';
+          if (!cell.isShown && !cell.isMine && !cell.isMarked) throw 'need to expose more cells';
+          if (cell.isMine && !cell.isMarked) throw 'need to flag more mines';
+        }))
+      } catch (e) {
+        console.log("🚀 ~ file: index.js ~ line 72 ~ checkIfVictory ~ e", e)
+        return
+      }
+
+      game.isOver = true
+      game.timer.gameRunning = false
+      game.emoji = emojiOption.win
+
     },
     revealAdjacentEmptyCells({ board }, { location }) {
       console.log({ board, location })
