@@ -27,7 +27,6 @@ export default {
 		const store = useStore();
 		store.commit({ type: "setBoard", level: "brutal" });
 		let level = computed(() => store.getters.level);
-    console.log("🚀 ~ file: Game.vue ~ line 30 ~ setup ~ level", level.value)
 
 		// METHODS
 		function setLevel(levelName) {

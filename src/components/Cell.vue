@@ -34,7 +34,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref, computed, onMounted /*, getCurrentInstance*/ } from "vue";
+import { ref, computed, onMounted, onUpdated, onUnmounted } from "vue";
 export default {
 	name: "Cell",
 	props: {
@@ -106,8 +106,7 @@ export default {
 			store.commit("startTimer");
 		}
 
-		// HOOKS
-		onMounted(() => {
+		function _renderCell() {
 			const { width } = el.value.getBoundingClientRect();
 			const height = (window.innerHeight * 0.75) / props.rowCount;
 
@@ -129,7 +128,15 @@ export default {
 				height: `${height > width ? width : height}px`,
 				color: colors[minesAroundCount],
 			};
-		});
+		}
+
+		// HOOKS
+		onMounted(_renderCell);
+
+		window.addEventListener("resize", _renderCell);
+		onUnmounted(() => window.removeEventListener("resize", _renderCell));
+		// on board change
+		onUpdated(_renderCell);
 
 		return {
 			el,
