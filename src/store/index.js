@@ -12,9 +12,16 @@ export default createStore({
       hard: { rows: 12, mines: 30 },
       brutal: { rows: 16, mines: 48 },
     },
-    currentLevel: null,
+    currentLevel: { rows: 16, mines: 48 },
+    emojiOption: {
+      default: "🙂",
+      clicking: "😬",
+      hovering: "🤔",
+      gameOver: "😵",
+    },
     game: {
       isOver: false,
+      emoji: '🙂',
       timer: {
         intervalAnchor: null,
         timer: 0,
@@ -31,21 +38,22 @@ export default createStore({
   },
   mutations: {
     setBoard(state, { levelName }) {
-      const { levels } = state
-      const setLevel = levelName && levels[levelName] ? levels[levelName] : levels.brutal
-      state.currentLevel = setLevel
-      state.board = buildBoard(setLevel)
+      let { levels } = state
+      state.currentLevel = levels?.[levelName] ? levels[levelName] : state.currentLevel
+      state.board = buildBoard(state.currentLevel)
     },
-    resetGame({ game }) {
+    resetGame({ game, emojiOption }) {
       game.isOver = false
       game.timer.gameRunning = false
+      game.emoji = emojiOption.default
     },
-    gameOver({ board, game }) {
+    gameOver({ board, game, emojiOption }) {
       board.forEach((row) => row.forEach((cell) => {
         if (cell.isMine) cell.isShown = true
       }))
       game.isOver = true
       game.timer.gameRunning = false
+      game.emoji = emojiOption.gameOver
     },
     revealAdjacentEmptyCells({ board }, { location }) {
       console.log({ board, location })

@@ -56,7 +56,7 @@
 </style>
 
 <script>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -68,17 +68,11 @@ export default {
 			() => store.getters.board.flat(1).filter((cell) => cell.isMarked).length
 		);
 
-		const EMOJI_OPTION = {
-			default: "🙂",
-			clicking: "😬",
-			hovering: "🤔",
-			gameOver: "😵",
-		};
-		const emoji = ref(EMOJI_OPTION.default);
+		const emoji = computed(() => store.getters.game.emoji);
 
 		function resetGame() {
 			store.commit("resetGame");
-			emoji.value = EMOJI_OPTION.default;
+			store.commit({ type: "setBoard", levelName: "easy" });
 		}
 
 		return { game, flaggedCells, resetGame, emoji };

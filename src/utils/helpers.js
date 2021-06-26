@@ -4,7 +4,7 @@ export function renderTimer(timeObj) {
     if (!timeObj.gameRunning) {
       clearInterval(timeObj.intervalAnchor)
       timeObj.intervalAnchor = null;
-      // timeObj.timer = 0
+      timeObj.timer = 0
     } else {
       timeObj.timer++
     }
