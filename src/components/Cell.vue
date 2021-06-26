@@ -34,7 +34,14 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref, computed, onMounted, onUpdated, onUnmounted } from "vue";
+import {
+	ref,
+	reactive,
+	computed,
+	onMounted,
+	onUpdated,
+	onUnmounted,
+} from "vue";
 export default {
 	name: "Cell",
 	props: {
@@ -44,7 +51,7 @@ export default {
 	setup(props) {
 		// DATA
 		const el = ref(null);
-		const elComputedStyle = ref("");
+		const elComputedStyle = reactive({});
 
 		const store = useStore();
 
@@ -126,11 +133,9 @@ export default {
 				"#130808",
 			];
 
-			elComputedStyle.value = {
-				fontSize: `${(width / 100) * 55}px`,
-				height: `${height > width ? width : height}px`,
-				color: colors[minesAroundCount],
-			};
+			elComputedStyle.fontSize = `${(width / 100) * 55}px`;
+			elComputedStyle.height = `${height > width ? width : height}px`;
+			elComputedStyle.color = colors[minesAroundCount];
 		}
 
 		// HOOKS
