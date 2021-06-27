@@ -1,9 +1,9 @@
 <template>
 	<ul class="bubble-menu">
-		<li class="fa-home"></li>
-		<li class="fa-suitcase"></li>
-		<li class="fa-flask"></li>
-		<li class="fa-user"></li>
+		<li @click="setLevel('easy')">1</li>
+		<li @click="setLevel('medium')">2</li>
+		<li @click="setLevel('hard')">3</li>
+		<li @click="setLevel('brutal')">4</li>
 	</ul>
 </template>
 
@@ -90,5 +90,18 @@ $transforms: translate(0, -$offset), translate($offset, 0),
 </style>
 
 <script>
-export default { name: "Bubble-Menu" };
+import { useStore } from "vuex";
+export default {
+	name: "Bubble-Menu",
+	setup() {
+		const store = useStore();
+
+		function setLevel(levelName) {
+			store.commit("resetGame");
+			store.commit({ type: "setBoard", levelName });
+		}
+
+		return { setLevel };
+	},
+};
 </script>

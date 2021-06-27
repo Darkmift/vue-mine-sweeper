@@ -72,7 +72,7 @@ export default {
 
 		function resetGame() {
 			store.commit("resetGame");
-			store.commit({ type: "setBoard", levelName: "easy" });
+			store.commit({ type: "setBoard", levelName: null });
 		}
 
 		return { game, flaggedCells, resetGame, emoji };
